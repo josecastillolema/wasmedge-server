@@ -1,0 +1,16 @@
+---
+# drill --benchmark drill-benchmark.yml --stats
+concurrency: 12
+base: "http://localhost:8080"
+iterations: 1000
+
+plan:
+  - name: GET
+    request:
+      url: /
+
+  - name: POST
+    request:
+      url: /echo
+      method: POST
+      body: "Try POSTing data to /echo such as: `curl localhost:8080/echo -XPOST -d 'hello world'`"

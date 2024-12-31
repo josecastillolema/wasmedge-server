@@ -45,7 +45,7 @@ $ podman build --provenance=false --platform wasi/wasm -t server-with-wasm .
 
 Then we can run it:
 ```
-$ podman --runtime /usr/bin/crun-wasm run --platform=wasi/wasm -t --rm server-with-wasm
+$ podman --runtime /usr/bin/crun-wasm run -dp 8080:8080 --platform=wasi/wasm -t --rm server-with-wasm
 ... ...
 
 $ curl http://localhost:8080/
