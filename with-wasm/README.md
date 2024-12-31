@@ -6,7 +6,7 @@
 - Rust
 - [WasmEdge](https://wasmedge.org/) and [crun](https://github.com/containers/crun) support
 ```
-> rpm-ostree install wasmedge crun-wasm
+$ rpm-ostree install wasmedge crun-wasm
 ```
 
 ## Step by step guide
@@ -40,12 +40,12 @@ The `Containerfile` follows the above steps to build and package a lightweight O
 We just need to specify that the WasmEdge application image is for the `wasi/wasm` platform.
 
 ```
-$ docker buildx build --provenance=false --platform wasi/wasm -t secondstate/rust-example-server .
+$ podman build --provenance=false --platform wasi/wasm -t server-with-wasm .
 ```
 
 Then we can run it:
 ```
-$ podman run -dp 8080:8080 --rm --runtime=io.containerd.wasmedge.v1 --platform=wasi/wasm secondstate/rust-example-server:latest
+$ podman --runtime /usr/bin/crun-wasm run --platform=wasi/wasm -t --rm server-with-wasm
 ... ...
 
 $ curl http://localhost:8080/

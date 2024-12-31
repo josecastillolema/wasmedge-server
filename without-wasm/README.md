@@ -34,14 +34,13 @@ Hello WasmEdge
 
 The `Containerfile` follows the above steps to build and package a lightweight OCI-compliant container image.
 ```
-$ docker buildx build --provenance=false -t secondstate/rust-example-server .
+$ podman build -t server-without-wasm .
 ... ...
-$ docker push secondstate/rust-example-server
 ```
 
 Then we can run it:
 ```
-$ podman run -dp 8080:8080 --rm secondstate/rust-example-server:latest
+$ podman run -dp 8080:8080 --rm server-without-wasm
 ... ...
 
 $ curl http://localhost:8080/
