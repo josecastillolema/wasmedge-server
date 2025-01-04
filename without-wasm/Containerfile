@@ -8,14 +8,15 @@ RUN <<EOT bash
     apt-get install -y \
         git \
         clang
+    rustup target add x86_64-unknown-linux-musl
 EOT
 
 FROM buildbase AS build
 COPY Cargo.toml .
-COPY src ./src 
+COPY src ./src
 # Build the binary
-RUN cargo build --release
+RUN cargo build --target x86_64-unknown-linux-musl --release
 
 FROM scratch
 ENTRYPOINT [ "/server-without-wasm" ]
-COPY --from=build /src/target/release/server-without-wasm /server-without-wasm
+COPY --from=build /src/target/x86_64-unknown-linux-musl//release/server-without-wasm /server-without-wasm

@@ -1,8 +1,8 @@
 ---
 # drill --benchmark drill-benchmark.yml --stats
 concurrency: 12
-base: "http://localhost:8080"
-iterations: 1000
+base: "http://localhost:8082"
+iterations: 1000000
 
 plan:
   - name: GET
