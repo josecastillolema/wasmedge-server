@@ -7,16 +7,17 @@
 
 ## Step by step guide
 
-Compile the Rust source code project to a Wasm bytecode file.
+Compile the Rust source code project:
 
 ```
-$ cargo build
+$ rustup target add x86_64-unknown-linux-musl
+$ cargo build --target x86_64-unknown-linux-musl --release
 ```
 
-Run the Wasm bytecode file in WasmEdge CLI.
+Run the server.
 
 ```
-$ cargo run
+$ ./target/x86_64-unknown-linux-musl/release/server-without-wasm
 Listening on http://0.0.0.0:8080
 ```
 

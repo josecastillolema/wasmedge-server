@@ -14,13 +14,14 @@ $ rpm-ostree install wasmedge crun-wasm
 Compile the Rust source code project to a Wasm bytecode file.
 
 ```
+$ rustup target add wasm32-wasi
 $ cargo build --target wasm32-wasi --release
 ```
 
 Run the Wasm bytecode file in WasmEdge CLI.
 
 ```
-$ wasmedge target/wasm32-wasi/release/server.wasm
+$ wasmedge target/wasm32-wasi/release/server-with-wasm.wasm
 Listening on http://0.0.0.0:8080
 ```
 
