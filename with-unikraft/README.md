@@ -1,53 +1,54 @@
-# HTTP server
+# Rust/Tokio Server
 
-## Prerequisites
+This directory contains an [Tokio](https://tokio.rs/) server running on Unikraft.
 
-- Podman
-- Rust
+## Set Up
 
-## Step by step guide
+To run this example, [install Unikraft's companion command-line toolchain `kraft`](https://unikraft.org/docs/cli), clone this repository and `cd` into this directory.
 
-Compile the Rust source code project:
+## Run and Use
 
-```
-$ rustup target add x86_64-unknown-linux-musl
-$ cargo build --target x86_64-unknown-linux-musl --release
-```
+Use `kraft` to run the image and start a Unikraft instance:
 
-Run the server.
-
-```
-$ ./target/x86_64-unknown-linux-musl/release/server-without-wasm
-Listening on http://0.0.0.0:8080
+```bash
+$ kraft run --rm -p 8080:8080 --plat qemu --arch x86_64 -M 512M .
 ```
 
-From another terminal window, do the following.
+If the `--plat` argument is left out, it defaults to `qemu`.
+If the `--arch` argument is left out, it defaults to your system's CPU architecture.
 
-```
-$ curl http://localhost:8080/
+Once executed, it will open port `8080` and wait for connections.
+To test it, you can use `curl`:
+
+```bash
+$ curl localhost:8080
 Try POSTing data to /echo such as: `curl localhost:8080/echo -XPOST -d 'hello world'`
-
-$ curl http://localhost:8080/echo -X POST -d "Hello WasmEdge"
-Hello WasmEdge
 ```
 
-## Build and publish on Docker
+## Inspect and Close
 
-The `Containerfile` follows the above steps to build and package a lightweight OCI-compliant container image.
-```
-$ podman build -t server-without-wasm .
-... ...
-```
+To list information about the Unikraft instance, use:
 
-Then we can run it:
-```
-$ podman run -dp 8080:8080 --rm server-without-wasm
-... ...
-
-$ curl http://localhost:8080/
-Try POSTing data to /echo such as: `curl localhost:8080/echo -XPOST -d 'hello world'`
-
-$ curl http://localhost:8080/echo -X POST -d "Hello WasmEdge"
-Hello WasmEdge
+```bash
+$ kraft ps
+NAME           KERNEL                          ARGS     CREATED         STATUS   MEM   PORTS                   PLAT
+hardcore_ivan  oci://unikraft.org/base:latest  /server  11 seconds ago  running  488M  0.0.0.0:8080->8080/tcp  qemu/x86_64
 ```
 
+To close the Unikraft instance, close the `kraft` process (e.g., via `Ctrl+c`) or run:
+
+```bash
+kraft rm hardcore_ivan
+```
+
+Note that depending on how you modify this example your instance **may** need more memory to run.
+To do so, use the `kraft run`'s `-M` flag, for example:
+
+```bash
+kraft run --rm -p 8080:8080 --plat qemu --arch x86_64 -M 1024M .
+```
+
+## Learn More
+
+- [How to run unikernels locally](https://unikraft.org/docs/cli/running)
+- [Building `Dockerfile` Images with `BuildKit`](https://unikraft.org/guides/building-dockerfile-images-with-buildkit)
