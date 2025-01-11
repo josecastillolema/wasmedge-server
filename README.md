@@ -1,6 +1,6 @@
 # Rust examples for WasmEdge
 
-Simple Rust HTTP server from the [WasmEdge Rust SDK examples](https://github.com/second-state/wasmedge-rustsdk-examples) modified to run with and without WasmEdge (and with [unikraft](https://unikraft.org/) also).
+Simple Rust HTTP server from the [WasmEdge Rust SDK examples](https://github.com/second-state/wasmedge-rustsdk-examples) modified to run with and without WasmEdge (and with [Unikraft](https://unikraft.org/) also).
 
 ## Code
 
