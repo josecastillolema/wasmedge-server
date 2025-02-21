@@ -1,12 +1,10 @@
 # Rust examples for WasmEdge
 
-Simple Rust HTTP client/server from the [WasmEdge Rust SDK examples](https://github.com/second-state/wasmedge-rustsdk-examples) modified to run with and without WasmEdge (and with [Unikraft](https://unikraft.org/) also).
+Simple Rust HTTP server from the [WasmEdge Rust SDK examples](https://github.com/second-state/wasmedge-rustsdk-examples) modified to run with and without WasmEdge (and with [Unikraft](https://unikraft.org/) also).
 
 ## Code
 
-### Server
-
-The [`server/src/main.rs`](server/with-wasm/src/main.rs) source code shows how to start an async server using the `hyper` crate.
+The [`src/main.rs`](with-wasm/src/main.rs) source code shows how to start an async server using the `hyper` crate.
 
 * The `main()` function is now an `async` function and annotated with the `tokio` macro. That means the tokio controller can spawn multiple instances of the `main()` app.
 * Each instance of the `main()` app listens at port 8080 without blocking the port for everyone else. It receives a data `stream` for each incoming HTTP connection it captures.
