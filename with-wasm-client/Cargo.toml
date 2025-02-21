@@ -1,0 +1,13 @@
+[package]
+name = "client-with-wasm"
+version = "0.1.0"
+authors = ["ubuntu"]
+edition = "2018"
+
+[[bin]]
+name = "client-with-wasm"
+path = "src/main.rs"
+
+[dependencies]
+hyper_wasi = { version = "0.15", features = ["full"]}
+tokio_wasi = { version = "1", features = ["full"]}

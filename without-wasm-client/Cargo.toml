@@ -1,0 +1,13 @@
+[package]
+name = "client-without-wasm"
+version = "0.1.0"
+authors = ["ubuntu"]
+edition = "2018"
+
+[[bin]]
+name = "client-without-wasm"
+path = "src/main.rs"
+
+[dependencies]
+hyper = { version = "0.14", features = ["full"]}
+tokio = { version = "1", features = ["full"]}
